@@ -54,6 +54,17 @@ function prev(){
    index = (index - 1 + slides.length) % slides.length;
    slides[index].classList.add('active');
 }
+let select_user = conn.prepare("SELECT * FROM `user` WHERE id = ?");
+select_user.execute([user_id]);
+if (select_user.rowCount() > 0) {
+   while (fetch_user = select_user.fetch(PDO::FETCH_ASSOC)) {
+      document.write('<p>welcome ! <span>' + fetch_user.name + '</span></p>');
+      document.write('<a href="index.php?logout" class="btn">logout</a>');
+   }
+} else {
+   document.write('<p><span>you are not logged in now!</span></p>');
+}
+
 
 let accordion = document.querySelectorAll('.faq .accordion-container .accordion');
 
